@@ -1,3 +1,13 @@
+# Harmonic Series Visualizer
+
+Trying to make a website to visualize the harmonic series given audio input from the user
+
+Using Web Audio API
+
+I'll update as I go
+
+<br>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
