@@ -31,25 +31,25 @@ export const autoCorrelate = (buf: Float32Array, sampleRate: number) => {
 		return -1;
 
 	var r1=0, r2=SIZE-1, thres=0.2;
-	for (var i=0; i<SIZE/2; i++)
-		if (Math.abs(buf[i])<thres) { r1=i; break; }
-	for (var i=1; i<SIZE/2; i++)
-		if (Math.abs(buf[SIZE-i])<thres) { r2=SIZE-i; break; }
+	for (var j=0; j<SIZE/2; j++)
+		if (Math.abs(buf[j])<thres) { r1=j; break; }
+	for (var x=1; x<SIZE/2; x++)
+		if (Math.abs(buf[SIZE-x])<thres) { r2=SIZE-x; break; }
 
 	buf = buf.slice(r1,r2);
 	SIZE = buf.length;
 
 	var c = new Array(SIZE).fill(0);
-	for (var i=0; i<SIZE; i++)
-		for (var j=0; j<SIZE-i; j++)
-			c[i] = c[i] + buf[j]*buf[j+i];
+	for (var y=0; y<SIZE; y++)
+		for (var z=0; z<SIZE-y; z++)
+			c[y] = c[y] + buf[z]*buf[z+y];
 
 	var d=0; while (c[d]>c[d+1]) d++;
 	var maxval=-1, maxpos=-1;
-	for (var i=d; i<SIZE; i++) {
-		if (c[i] > maxval) {
-			maxval = c[i];
-			maxpos = i;
+	for (var w=d; w<SIZE; w++) {
+		if (c[w] > maxval) {
+			maxval = c[w];
+			maxpos = w;
 		}
 	}
 	var T0 = maxpos;

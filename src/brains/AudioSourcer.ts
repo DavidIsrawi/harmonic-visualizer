@@ -36,7 +36,7 @@ const getUserMedia = (callback: NavigatorUserMediaSuccessCallback) => {
     }
 }
 
-export const toggleLiveInput = () => {
+export const enableLiveInput = () => {
     if (!audioInitialized) initAudio();
     getUserMedia(gotStream);
 }
@@ -76,5 +76,5 @@ const updatePitch = () => {
 		window.requestAnimationFrame = window.webkitRequestAnimationFrame;
     }
 
-    rafID = window.requestAnimationFrame( updatePitch );
+    rafID = window.requestAnimationFrame(updatePitch);
 }
