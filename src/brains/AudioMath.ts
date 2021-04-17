@@ -9,8 +9,13 @@ const frequencyFromNoteNumber = (note: number) => {
 	return 440 * Math.pow(2,(note-69)/12);
 }
 
-export const centsOffFromPitch = (frequency: number, note: number) => {
+const centsOffFromPitch = (frequency: number, note: number) => {
 	return Math.floor( 1200 * Math.log( frequency / frequencyFromNoteNumber( note ))/Math.log(2) );
+}
+
+export const detuneTypeFromPitch = (frequency: number, note: number) => {
+	const detune: number = centsOffFromPitch(frequency, note);
+	return detune === 0 ? '-' : detune < 0 ? 'flat' : 'sharp';
 }
 
 export const getNote = (noteNumber: number) => {

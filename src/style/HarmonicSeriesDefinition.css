@@ -1,0 +1,14 @@
+.description {
+  margin-top: 2%;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.description > p {
+  text-align: justify;
+}
+
+.description > strong {
+  text-align: center;
+}

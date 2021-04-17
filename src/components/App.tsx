@@ -1,7 +1,9 @@
 import React from 'react';
 import { cancelAudioStream, enableLiveInput } from '../brains/AudioSourcer';
 import '../style/App.css';
-import ToneBanner from './ToneBanner';
+import HarmonicSeriesDefinition from './HarmonicSeriesDefinition';
+import HarmonicSeriesNotes from './HarmonicSeriesNotes';
+import NoteBanner from './NoteBanner';
 
 const App = () => {
   const [isEnabled, setIsEnabled] = React.useState(false);
@@ -20,15 +22,17 @@ const App = () => {
 
   const stopUserAudio = () => {
     cancelAudioStream();
-    updateNoteAndFrequency('', 0);
     setIsEnabled(false);
   }
 
   return (
     <div className="App">
-        <button onClick={enableUserAudio} hidden={isEnabled}>Enable User Audio</button>
-        <button onClick={stopUserAudio} hidden={!isEnabled}>Stop User Audio</button>
-        <ToneBanner note={note} frequency={frequency}/>
+        <HarmonicSeriesDefinition/>
+        <button onClick={enableUserAudio} hidden={isEnabled}>Find your Harmonic Series</button>
+        <button onClick={stopUserAudio} hidden={!isEnabled}>Pause Audio</button>
+        <NoteBanner note={note} frequency={frequency}/>
+        <br></br>
+        <HarmonicSeriesNotes frequency={frequency}/>
     </div>
   );
 }

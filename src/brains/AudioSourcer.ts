@@ -1,4 +1,4 @@
-import { autoCorrelate, centsOffFromPitch, getNote, noteFromPitch } from "./AudioMath";
+import { autoCorrelate, detuneTypeFromPitch, getNote, noteFromPitch } from "./AudioMath";
 
 let mediaStreamSource = null;
 let analyser: AnalyserNode;
@@ -69,8 +69,7 @@ const updatePitch = () => {
 
         // TODO: Find relation between pitch and frequency (hertz)
         // For now I'm assuming they're the same
-        const detune = centsOffFromPitch(ac, note);
-        const detuneType = detune === 0 ? '-' : detune < 0 ? 'flat' : 'sharp';
+        const detuneType = detuneTypeFromPitch(ac, note);
         const newNote = `${getNote(note%12)} ${detuneType}`
         if (previousNote === '' || previousNote !== newNote) {
             //console.log(`${pitch}Hz - ${newNote}`);
