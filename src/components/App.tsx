@@ -4,30 +4,31 @@ import '../style/App.css';
 import ToneBanner from './ToneBanner';
 
 const App = () => {
-  const [isEnable, setIsEnable] = React.useState(true);
-  const [frequency, setFrequency] = React.useState(30);
-  const [tone, setTone] = React.useState('A');
+  const [isEnabled, setIsEnabled] = React.useState(false);
+  const [frequency, setFrequency] = React.useState(0);
+  const [note, setNote] = React.useState('');
 
   const enableUserAudio = () => {
-    enableLiveInput(updateToneAndFrequency);
-    setIsEnable(false);
+    enableLiveInput(updateNoteAndFrequency);
+    setIsEnabled(true);
   }
 
-  const updateToneAndFrequency = (newTone: string, newFrequency: number) => {
-    setTone(newTone);
+  const updateNoteAndFrequency = (newNote: string, newFrequency: number) => {
+    setNote(newNote);
     setFrequency(newFrequency);
   }
 
   const stopUserAudio = () => {
     cancelAudioStream();
-    setIsEnable(true);
+    updateNoteAndFrequency('', 0);
+    setIsEnabled(false);
   }
 
   return (
     <div className="App">
-        <button onClick={enableUserAudio} hidden={!isEnable}>Enable User Audio</button>
-        <button onClick={stopUserAudio} hidden={isEnable}>Stop User Audio</button>
-        <ToneBanner tone={tone} frequency={frequency}/>
+        <button onClick={enableUserAudio} hidden={isEnabled}>Enable User Audio</button>
+        <button onClick={stopUserAudio} hidden={!isEnabled}>Stop User Audio</button>
+        <ToneBanner note={note} frequency={frequency}/>
     </div>
   );
 }

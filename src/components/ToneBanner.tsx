@@ -1,11 +1,11 @@
 interface ToneBannerProps {
-    tone: string;
+    note: string;
     frequency: number;
 }
 
 const ToneBanner = (props: ToneBannerProps) => {
     return (
-        <h1>{props.frequency}Hz - {props.tone.toString()}</h1>
+        <h1>{props.frequency}Hz - {props.note.toString()}</h1>
     )
 }
 

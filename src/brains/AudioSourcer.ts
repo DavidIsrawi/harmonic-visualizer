@@ -8,7 +8,7 @@ var buf = new Float32Array( buflen );
 var audioInitialized: boolean = false;
 var rafID: number = 0;
 var previousNote: string = '';
-let updateToneFrequency: (newTone: string, newFrequency: number) => void;
+let updateNoteFrequency: (newNote: string, newFrequency: number) => void;
 
 const initAudio = () => {
     audioContext = new AudioContext();
@@ -37,9 +37,9 @@ const getUserMedia = (callback: NavigatorUserMediaSuccessCallback) => {
     }
 }
 
-export const enableLiveInput = (callbackForToneFrequency: (newTone: string, newFrequency: number) => void) => {
+export const enableLiveInput = (callbackForNoteFrequency: (newNote: string, newFrequency: number) => void) => {
     if (!audioInitialized) initAudio();
-    updateToneFrequency = callbackForToneFrequency;
+    updateNoteFrequency = callbackForNoteFrequency;
     getUserMedia(gotStream);
 }
 
@@ -76,7 +76,7 @@ const updatePitch = () => {
             //console.log(`${pitch}Hz - ${newNote}`);
             previousNote = newNote;
         }
-        updateToneFrequency(newNote, pitch);
+        updateNoteFrequency(newNote, pitch);
     }
 
     if (!window.requestAnimationFrame) {
