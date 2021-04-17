@@ -1,4 +1,11 @@
 .main-note {
+  border-radius: 10px;
   font-weight: 700;
+  background-color: white;
+  color: #000000a1;
+  padding: 15px;
+  width: fit-content;
+  margin-left: auto;
   font-size: x-large;
+  margin-right: auto;
 }
