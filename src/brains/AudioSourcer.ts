@@ -8,6 +8,7 @@ var buf = new Float32Array( buflen );
 var audioInitialized: boolean = false;
 var rafID: number = 0;
 var previousNote: string = '';
+let updateToneFrequency: (newTone: string, newFrequency: number) => void;
 
 const initAudio = () => {
     audioContext = new AudioContext();
@@ -36,8 +37,9 @@ const getUserMedia = (callback: NavigatorUserMediaSuccessCallback) => {
     }
 }
 
-export const enableLiveInput = () => {
+export const enableLiveInput = (callbackForToneFrequency: (newTone: string, newFrequency: number) => void) => {
     if (!audioInitialized) initAudio();
+    updateToneFrequency = callbackForToneFrequency;
     getUserMedia(gotStream);
 }
 
@@ -62,14 +64,19 @@ const updatePitch = () => {
 	var ac = autoCorrelate( buf, audioContext.sampleRate );
     
     if (ac !== -1) {
-        const note = noteFromPitch(Math.round(ac));
+        const pitch = Math.round(ac);
+        const note = noteFromPitch(pitch);
+
+        // TODO: Find relation between pitch and frequency (hertz)
+        // For now I'm assuming they're the same
         const detune = centsOffFromPitch(ac, note);
         const detuneType = detune === 0 ? '-' : detune < 0 ? 'flat' : 'sharp';
         const newNote = `${getNote(note%12)} ${detuneType}`
         if (previousNote === '' || previousNote !== newNote) {
-            console.log(newNote);
+            //console.log(`${pitch}Hz - ${newNote}`);
             previousNote = newNote;
         }
+        updateToneFrequency(newNote, pitch);
     }
 
     if (!window.requestAnimationFrame) {
