@@ -30,12 +30,23 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
 
     return(
         <div className='harmonic-series'>
-        <strong>Your Harmonic Series</strong>
+        <h3>Your Harmonic Series</h3>
+        <table className='harmonic-table'>
+        <tr className='table-header'>
+            <th>Frequency</th>
+            <th>Note</th>
+        </tr>
         {
             harmonicSeriesElements.map(element => {
-                return <p key={element.frequency}>{element.frequency} Hz - {element.note}</p>
+                return (
+                    <tr className='table-entry' key={element.frequency}>
+                        <th>{element.frequency} Hz</th>
+                        <th>{element.note}</th> 
+                    </tr>
+                );
             })
         }
+        </table>
         </div>
     )
 }
