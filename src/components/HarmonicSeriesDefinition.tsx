@@ -3,7 +3,7 @@ import '../style/HarmonicSeriesDefinition.css';
 const HarmonicSeriesDefinition = () => {
     return (
         <div className='description'>
-            <strong>The Harmonic Series in Music</strong>
+            <h3 className='subheader'>The Harmonic Series in Music</h3>
             <p>
                 When a note is played (not only in music, but also in nature). What we hear is a mix of notes - it starts with a low note which is the intended one, and it's followed by a series of higher pitch notes that are relative to the initial note.
             </p>
@@ -14,7 +14,7 @@ const HarmonicSeriesDefinition = () => {
                 These notes are called harmonics or overtones
             </p>
 
-            <strong>Why does this happen?</strong>
+            <h3 className='subheader'>Why does this happen?</h3>
             <p>
                 Imagine a string.
             </p>

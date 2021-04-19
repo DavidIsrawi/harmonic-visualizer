@@ -6,8 +6,10 @@ interface NoteBannerProps {
 }
 
 const NoteBanner = (props: NoteBannerProps) => {
+    const formattedFrequency = `${props.frequency} Hz`;
+    const formattedNode = props.note !== '' ? `- ${props.note.toString()}` : '';
     return (
-        <p className='main-note'>{props.frequency} Hz - {props.note.toString()}</p>
+        <p className='main-note'>{formattedFrequency} {formattedNode}</p>
     )
 }
 
