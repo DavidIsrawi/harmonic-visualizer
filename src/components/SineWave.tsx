@@ -1,5 +1,5 @@
-/* eslint-disable no-restricted-globals */
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
+import * as Tone from 'tone'
 
 interface SineWaveProps {
     frequency: number
@@ -9,6 +9,14 @@ interface SineWaveProps {
 }
 
 const SineWave = (props: SineWaveProps) => {
+
+    const playTone = () => {
+        // create a synth and connect it to the main output (your speakers)
+        const synth = new Tone.Synth().toDestination();
+
+        // play for the duration of an 8th note
+        synth.triggerAttackRelease(props.frequency, "8n");
+    }
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const contextRef = useRef<CanvasRenderingContext2D | null>(null)
@@ -26,7 +34,8 @@ const SineWave = (props: SineWaveProps) => {
         if (context === null) return
         contextRef.current = context
         draw();
-    }, [props.frequency])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.frequency, props.height, props.width])
 
     const draw = () => {
         
@@ -59,6 +68,7 @@ const SineWave = (props: SineWaveProps) => {
     return (
         <canvas
             className='sine-wave'
+            onMouseUp={playTone}
             ref={canvasRef}
         />
     )

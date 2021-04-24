@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 const ToneContext = createContext(null);
 
 export default ToneContext
