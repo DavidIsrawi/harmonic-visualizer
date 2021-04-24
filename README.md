@@ -4,7 +4,7 @@ Website to visualize the harmonic series given audio input from the user
 
 I was recently learning about the Harmonic Series - a series produces whenever there is a sound produced by a string or by air (including nature. When a tone is produced (e.g. we hit a string in a guitar), the resulting sound is not just the tone intended, but it is a series of tones that create a harmony.
 
-A longer and better explanation is found on the website.
+A longer and better explanation is found on https://davidisrawi.me/harmonic-visualizer/
 
 # Glossary
 
