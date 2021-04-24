@@ -1,5 +1,6 @@
 import { detuneTypeFromPitch, getNote, noteFromPitch } from "../brains/AudioMath";
 import '../style/HarmonicSeriesNotes.css';
+import SineWave from "./SineWave";
 
 interface HarmonicSeriesNotesProps {
     frequency: number;
@@ -15,6 +16,7 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
 
     const numberOfSeriesIterations: number = 8;
     let harmonicSeriesElements: HarmonicSeriesElement[] = [];
+    let elementIteration: number = 0;
 
     for (let seriesElem = 0; seriesElem < numberOfSeriesIterations; seriesElem++) {
         const noteNumber = noteFromPitch(props.frequency * (seriesElem + 1));
@@ -36,13 +38,23 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
             <tr className='table-header'>
                 <th>Frequency</th>
                 <th>Note</th>
+                <th>Vibration of String</th>
             </tr>
             {
                 harmonicSeriesElements.map(element => {
+                    elementIteration++;
                     return (
                         <tr className='table-entry' key={element.frequency}>
                             <th>{element.frequency} Hz</th>
                             <th>{element.note}</th> 
+                            <th className='sine-wave'>
+                                <SineWave
+                                    frequency={element.frequency}
+                                    height={100}
+                                    width={400}
+                                    waves={elementIteration}
+                                />
+                            </th>
                         </tr>
                     );
                 })

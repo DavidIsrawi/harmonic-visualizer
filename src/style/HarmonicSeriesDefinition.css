@@ -8,3 +8,8 @@
 .description > p {
   text-align: justify;
 }
+
+th.sine-wave {
+  width: 60%;
+  padding: 0;
+}
