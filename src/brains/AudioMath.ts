@@ -15,7 +15,7 @@ const centsOffFromPitch = (frequency: number, note: number) => {
 
 export const detuneTypeFromPitch = (frequency: number, note: number) => {
 	const detune: number = centsOffFromPitch(frequency, note);
-	return detune === 0 ? '-' : detune < 0 ? 'flat' : 'sharp';
+	return detune === 0 ? '' : detune < 0 ? 'flat' : 'sharp';
 }
 
 export const getNote = (noteNumber: number) => {
