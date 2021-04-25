@@ -9,6 +9,12 @@
   margin-right: auto;
   border: 2px solid;
   border-color: #2f8b44;
+  font-size: x-large;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .note-banner:hover {
@@ -17,11 +23,6 @@
   color: white;
 }
 
-.note-banner-note {
-  font-size: x-large;
-}
-
-.note-banner-audio {
-  font-size: 0.8em;
-  font-weight: 400;
+.note-banner > img {
+  margin-left: 2%;
 }
