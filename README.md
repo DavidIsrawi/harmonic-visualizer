@@ -27,3 +27,7 @@ In music, the frequency dictates the pitch - frequency being directly proportion
 Created using create-react-app + typescript as a starter. Besides that, I'm using the Web Audio API and Tone.js (library for Web Audio API). Eventually I want to use exclusively Tone.js (see the Projects tab)
 
 Trying to keep it as light as possible
+
+# To Deploy
+
+`npm run deploy`
