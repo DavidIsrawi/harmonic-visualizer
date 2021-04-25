@@ -1,11 +1,27 @@
-.main-note {
+.note-banner {
   border-radius: 10px;
   font-weight: 700;
   background-color: white;
-  color: #000000a1;
+  color: #2f8b44;
   padding: 15px;
   width: fit-content;
   margin-left: auto;
-  font-size: x-large;
   margin-right: auto;
+  border: 2px solid;
+  border-color: #2f8b44;
+}
+
+.note-banner:hover {
+  background-color: #2f8b44;
+  border-color: white;
+  color: white;
+}
+
+.note-banner-note {
+  font-size: x-large;
+}
+
+.note-banner-audio {
+  font-size: 0.8em;
+  font-weight: 400;
 }

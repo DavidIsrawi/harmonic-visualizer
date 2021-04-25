@@ -6,12 +6,33 @@
   margin-right: auto;
 }
 
-.harmonic-table {
-  width: 100%;
-  font-size: 1.15em;
+.wave-header {
+  width: 400px;
 }
 
-.table-entry > th {
-  font-weight: 400;
+.harmonic-table-container {
+  width: 100%;
+  font-size: 1.15em;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
   padding: 8px;
+}
+
+.harmonic-element-container {
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+}
+
+.harmonic-element-container:hover {
+  border: 3px solid white;
+  border-radius: 10px;
+  background-color: white;
+  color: #2f8b44;
 }
