@@ -13,16 +13,15 @@ interface HarmonicSeriesElement {
     note: string;
 }
 
-const PlayTone = (synth: Tone.Synth, frequency: number) => {
+const PlayTone = (frequency: number) => {
+    // create a synth and connect it to the main output (your speakers)
+    const synth = new Tone.Synth().toDestination();
     // play for the duration of an 8th note
     synth.triggerAttackRelease(frequency, "8n");    
 }
 
 const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
     if (props.frequency === 0) return null;
-
-    // create a synth and connect it to the main output (your speakers)
-    const synth = new Tone.Synth().toDestination();
 
     const numberOfSeriesIterations: number = 8;
     let harmonicSeriesElements: HarmonicSeriesElement[] = [];
@@ -51,7 +50,7 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
             harmonicSeriesElements.map(element => {
                 elementIteration++;
                 return (
-                    <div className='harmonic-element-container' key={element.frequency} onClick={() => PlayTone(synth, element.frequency)}>
+                    <div className='harmonic-element-container' key={element.frequency} onClick={() => PlayTone(element.frequency)}>
                         <div id={element.frequency.toString()}>{element.frequency} Hz - {element.note}</div>
                         <div className='sine-wave'>
                             <SineWave
