@@ -19,7 +19,7 @@ const App = () => {
         <HarmonicSeriesDefinition/>
         <NoteBanner updateNoteAndFrequency={updateNoteAndFrequency} note={note} frequency={frequency}/>
         <br></br>
-        <HarmonicSeriesNotes frequency={frequency}/>
+        { frequency !== 0 ? <HarmonicSeriesNotes frequency={frequency}/> : null }
     </div>
   );
 }

@@ -21,9 +21,18 @@ const PlayTone = (frequency: number) => {
     synth.triggerAttackRelease(frequency, "8n");    
 }
 
+const GetContainerWidth = (): number => {
+    const container = document.getElementsByClassName('harmonic-element-container')[0]
+    if (container === undefined) return 0
+
+    const containerWidth = window.getComputedStyle(container).width
+    // I want the sine wave to be 60% of the width of the card    
+    return parseInt(containerWidth, 10) * 0.6
+}
+
 const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
 
-    const [canvasWidth, setCanvasWidth] = useState(400)
+    const [canvasWidth, setCanvasWidth] = useState(0)
 
     const numberOfSeriesIterations: number = 8;
     let harmonicSeriesElements: HarmonicSeriesElement[] = [];
@@ -31,15 +40,9 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
 
     useEffect(() => {
 
+        setCanvasWidth(GetContainerWidth())
         const UpdateCanvasWidth = (): void => {
-            const container = document.getElementsByClassName('harmonic-element-container')[0]
-            if (container === undefined) return
-
-            const containerWidth = window.getComputedStyle(container).width
-            console.log(`canvas width: ${containerWidth}`);
-            
-            // I want the sine wave to be 60% of the width of the card
-            setCanvasWidth(parseInt(containerWidth, 10) * 0.6)
+            setCanvasWidth(GetContainerWidth())
         }
 
         window.addEventListener('resize', UpdateCanvasWidth);
@@ -47,8 +50,6 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
         window.removeEventListener('resize', UpdateCanvasWidth);
     }
     }, [])
-
-    if (props.frequency === 0) return null;
 
     for (let seriesElem = 0; seriesElem < numberOfSeriesIterations; seriesElem++) {
         const noteNumber = noteFromPitch(props.frequency * (seriesElem + 1));
