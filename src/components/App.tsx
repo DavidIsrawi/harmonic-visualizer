@@ -8,7 +8,7 @@ const App = () => {
   const [frequency, setFrequency] = React.useState(0);
   const [note, setNote] = React.useState('');
 
-  const updateNoteAndFrequency = (newNote: string, newFrequency: number) => {
+  const UpdateNoteAndFrequency = (newNote: string, newFrequency: number) => {
     setNote(newNote);
     setFrequency(newFrequency);
   }
@@ -17,7 +17,7 @@ const App = () => {
   return (
     <div className="App">
         <HarmonicSeriesDefinition/>
-        <NoteBanner updateNoteAndFrequency={updateNoteAndFrequency} note={note} frequency={frequency}/>
+        <NoteBanner updateNoteAndFrequency={UpdateNoteAndFrequency} note={note} frequency={frequency}/>
         <br></br>
         { frequency !== 0 ? <HarmonicSeriesNotes frequency={frequency}/> : null }
     </div>

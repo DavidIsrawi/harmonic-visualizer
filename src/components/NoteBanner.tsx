@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../style/NoteBanner.css'
-import { cancelAudioStream, enableLiveInput } from '../brains/AudioSourcer';
+import { CancelAudioStream, EnableLiveInput } from '../brains/AudioSourcer';
 import SpeakerOn from '../assets/SpeakerOn.svg'
 import SpeakerOff from '../assets/SpeakerOff.svg'
 
@@ -16,16 +16,16 @@ const NoteBanner = (props: NoteBannerProps) => {
 
     const ToggleAudio = () => {
         if (hasAudioStarted) {
-            cancelAudioStream();
+            CancelAudioStream();
         }
         else {
-            enableLiveInput(props.updateNoteAndFrequency);
+            EnableLiveInput(props.updateNoteAndFrequency);
         }
 
         setHasAudioStarted((hasAudioStarted) => !hasAudioStarted);
     }
 
-    const getNoteString = (): string => {
+    const GetNoteString = (): string => {
         if (props.frequency !== 0 || hasAudioStarted) {
             return `${formattedFrequency} ${formattedNode}`
         }
@@ -34,7 +34,7 @@ const NoteBanner = (props: NoteBannerProps) => {
         
     }
 
-    const getHoveredElement = (): JSX.Element | null => {
+    const GetHoveredElement = (): JSX.Element | null => {
         const speakerOnIcon = <img height='35px' width='35px' src={SpeakerOn} alt="Speaker is on"/>
         const speakerOffIcon = <img height='35px' width='35px' src={SpeakerOff} alt="Speaker is off"/>
 
@@ -51,7 +51,7 @@ const NoteBanner = (props: NoteBannerProps) => {
     const formattedNode = props.note !== '' ? `- ${props.note.toString()}` : '';
     return (
         <div onClick={ToggleAudio} className='note-banner' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-            {getNoteString()} {getHoveredElement()}
+            {GetNoteString()} {GetHoveredElement()}
         </div>
     )
 }

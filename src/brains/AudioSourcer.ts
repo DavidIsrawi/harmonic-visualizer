@@ -10,7 +10,7 @@ var rafID: number = 0;
 var previousNote: string = '';
 let updateNoteFrequency: (newNote: string, newFrequency: number) => void;
 
-const initAudio = () => {
+const InitAudio = () => {
     audioContext = new AudioContext();
     audioInitialized = true;
 }
@@ -29,7 +29,7 @@ const error = () => {
     alert('Stream generation failed.');
 }
 
-const getUserMedia = (callback: NavigatorUserMediaSuccessCallback) => {
+const GetUserMedia = (callback: NavigatorUserMediaSuccessCallback) => {
     try {
         navigator.getUserMedia(STREAM_CONSTRAINTS, callback, error);
     } catch (e) {
@@ -37,18 +37,18 @@ const getUserMedia = (callback: NavigatorUserMediaSuccessCallback) => {
     }
 }
 
-export const enableLiveInput = (callbackForNoteFrequency: (newNote: string, newFrequency: number) => void) => {
-    if (!audioInitialized) initAudio();
+export const EnableLiveInput = (callbackForNoteFrequency: (newNote: string, newFrequency: number) => void) => {
+    if (!audioInitialized) InitAudio();
     updateNoteFrequency = callbackForNoteFrequency;
-    getUserMedia(gotStream);
+    GetUserMedia(GotStream);
 }
 
-export const cancelAudioStream = () => {
+export const CancelAudioStream = () => {
     window.cancelAnimationFrame(rafID);
     console.log('Audio stream stopped');
 }
 
-const gotStream = (stream: MediaStream) => {
+const GotStream = (stream: MediaStream) => {
     // Create an AudioNode from the stream.
     mediaStreamSource = audioContext.createMediaStreamSource(stream);
 
@@ -56,10 +56,10 @@ const gotStream = (stream: MediaStream) => {
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 2048;
     mediaStreamSource.connect(analyser);
-    updatePitch();
+    UpdatePitch();
 }
 
-const updatePitch = () => {
+const UpdatePitch = () => {
     analyser.getFloatTimeDomainData( buf );
 	var ac = autoCorrelate( buf, audioContext.sampleRate );
     
@@ -82,5 +82,5 @@ const updatePitch = () => {
 		window.requestAnimationFrame = window.webkitRequestAnimationFrame;
     }
 
-    rafID = window.requestAnimationFrame(updatePitch);
+    rafID = window.requestAnimationFrame(UpdatePitch);
 }

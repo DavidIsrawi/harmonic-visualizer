@@ -4,7 +4,6 @@ import SineWave from "./SineWave";
 import * as Tone from 'tone'
 import { useEffect, useState } from "react";
 
-
 interface HarmonicSeriesNotesProps {
     frequency: number;
 }

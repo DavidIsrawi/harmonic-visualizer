@@ -32,11 +32,11 @@ const SineWave = (props: SineWaveProps) => {
         const context = canvas.getContext('2d')
         if (context === null) return
         contextRef.current = context
-        draw();
+        Draw();
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.frequency, props.height, props.width])
 
-    const draw = () => {
+    const Draw = () => {
         
         if (contextRef.current === null || canvasRef.current === null) return;
         const context: CanvasRenderingContext2D = contextRef.current;
@@ -61,7 +61,7 @@ const SineWave = (props: SineWaveProps) => {
         context.strokeStyle = GetColor();
         context.stroke();
 
-        window.requestAnimationFrame(draw);
+        window.requestAnimationFrame(Draw);
         theta += 0.1; // speed
     }
 
