@@ -2,6 +2,7 @@ import { detuneTypeFromPitch, getNote, noteFromPitch } from "../brains/AudioMath
 import '../style/HarmonicSeriesNotes.css';
 import SineWave from "./SineWave";
 import * as Tone from 'tone'
+import { useEffect, useState } from "react";
 
 
 interface HarmonicSeriesNotesProps {
@@ -21,11 +22,33 @@ const PlayTone = (frequency: number) => {
 }
 
 const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
-    if (props.frequency === 0) return null;
+
+    const [canvasWidth, setCanvasWidth] = useState(400)
 
     const numberOfSeriesIterations: number = 8;
     let harmonicSeriesElements: HarmonicSeriesElement[] = [];
     let elementIteration: number = 0;
+
+    useEffect(() => {
+
+        const UpdateCanvasWidth = (): void => {
+            const container = document.getElementsByClassName('harmonic-element-container')[0]
+            if (container === undefined) return
+
+            const containerWidth = window.getComputedStyle(container).width
+            console.log(`canvas width: ${containerWidth}`);
+            
+            // I want the sine wave to be 60% of the width of the card
+            setCanvasWidth(parseInt(containerWidth, 10) * 0.6)
+        }
+
+        window.addEventListener('resize', UpdateCanvasWidth);
+    return () => {
+        window.removeEventListener('resize', UpdateCanvasWidth);
+    }
+    }, [])
+
+    if (props.frequency === 0) return null;
 
     for (let seriesElem = 0; seriesElem < numberOfSeriesIterations; seriesElem++) {
         const noteNumber = noteFromPitch(props.frequency * (seriesElem + 1));
@@ -56,7 +79,7 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
                             <SineWave
                                 frequency={element.frequency}
                                 height={100}
-                                width={400}
+                                width={canvasWidth}
                                 waves={elementIteration}
                             />
                         </div>

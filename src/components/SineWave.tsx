@@ -9,6 +9,8 @@ interface SineWaveProps {
 
 const SineWave = (props: SineWaveProps) => {
 
+    // getComputerStyle can be expensive
+    // We can pass the color from the parent whenever the container is hovered
     const GetColor = (): string => {
         const element = document.getElementById(props.frequency.toString());
         if (element === null) return 'white';
@@ -44,14 +46,15 @@ const SineWave = (props: SineWaveProps) => {
         context.beginPath()
         //context.moveTo(0, canvas.height / 2)
 
-        for (let i = 0; i < canvas.width; i++) {
+        for (let x = 0; x < canvas.width; x++) {
             const y: number = canvas.height / 2 + 
-                Math.sin(i *
-                    0.0039 * props.waves /* wavelength, 0.39 is an arbitrary number that worked */ +
-                    0 /* increment, props.frequency would go here but I want to make it independent of it */) *
+                // Math.sin takes radians
+                // i/total width * pi (pi is half an oscillation) * number of half oscillations we want
+                Math.sin(x/canvas.width * Math.PI * props.waves) *
                     50 /* amplitude */ *
                     Math.sin(theta) /* speed */
-            context.lineTo(i, y);
+
+            context.lineTo(x, y);
         }
 
         context.lineWidth = 10
