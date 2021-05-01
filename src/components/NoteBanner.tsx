@@ -35,8 +35,8 @@ const NoteBanner = (props: NoteBannerProps) => {
     }
 
     const GetHoveredElement = (): JSX.Element | null => {
-        const speakerOnIcon = <img height='35px' width='35px' src={SpeakerOn} alt="Speaker is on"/>
-        const speakerOffIcon = <img height='35px' width='35px' src={SpeakerOff} alt="Speaker is off"/>
+        const speakerOnIcon = <img height='30px' width='30px' src={SpeakerOn} alt="Speaker is on"/>
+        const speakerOffIcon = <img height='30px' width='30px' src={SpeakerOff} alt="Speaker is off"/>
 
         if (hasAudioStarted && isHover)
             return hasAudioStarted ? speakerOnIcon : speakerOffIcon
