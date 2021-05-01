@@ -12,14 +12,14 @@ const SineWave = (props: SineWaveProps) => {
     // getComputerStyle can be expensive
     // We can pass the color from the parent whenever the container is hovered
     const GetColor = (): string => {
-        const element = document.getElementById(props.frequency.toString());
-        if (element === null) return 'white';
-        return window.getComputedStyle(element).color;
+        const elementHovered = localStorage.getItem('elementHovered')
+        if (elementHovered === null) return 'white'
+        return parseInt(elementHovered, 10) === props.frequency ? '#2f8b44' : 'white'
     }
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const contextRef = useRef<CanvasRenderingContext2D | null>(null)
-    let theta: number = 0;
+    let theta: number = 0
 
     useEffect(() => {
         const canvas = canvasRef.current
@@ -38,11 +38,11 @@ const SineWave = (props: SineWaveProps) => {
 
     const Draw = () => {
         
-        if (contextRef.current === null || canvasRef.current === null) return;
-        const context: CanvasRenderingContext2D = contextRef.current;
-        const canvas: HTMLCanvasElement = canvasRef.current;
+        if (contextRef.current === null || canvasRef.current === null) return
+        const context: CanvasRenderingContext2D = contextRef.current
+        const canvas: HTMLCanvasElement = canvasRef.current
 
-        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.clearRect(0, 0, canvas.width, canvas.height)
         context.beginPath()
         //context.moveTo(0, canvas.height / 2)
 
@@ -54,15 +54,15 @@ const SineWave = (props: SineWaveProps) => {
                     50 /* amplitude */ *
                     Math.sin(theta) /* speed */
 
-            context.lineTo(x, y);
+            context.lineTo(x, y)
         }
 
         context.lineWidth = 10
-        context.strokeStyle = GetColor();
-        context.stroke();
+        context.strokeStyle = GetColor()
+        context.stroke()
 
-        window.requestAnimationFrame(Draw);
-        theta += 0.1; // speed
+        window.requestAnimationFrame(Draw)
+        theta += 0.1 // speed
     }
 
     return (

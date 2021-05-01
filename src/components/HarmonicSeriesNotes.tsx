@@ -29,12 +29,29 @@ const GetContainerWidth = (): number => {
     return parseInt(containerWidth, 10) * 0.6
 }
 
+const DeriveHarmonicSeriesFromFrequency = (frequency: number): HarmonicSeriesElement[] => {
+    const numberOfSeriesIterations: number = 8;
+    const harmonicSeriesElements: HarmonicSeriesElement[] = [];
+
+    for (let seriesElem = 0; seriesElem < numberOfSeriesIterations; seriesElem++) {
+        const noteNumber = noteFromPitch(frequency * (seriesElem + 1));
+        const note = getNote(noteNumber % 12);
+        const detune = detuneTypeFromPitch(frequency, noteNumber);
+        const element: HarmonicSeriesElement = {
+            frequency: frequency * (seriesElem+1),
+            note: `${note} ${detune}`
+        };
+
+        harmonicSeriesElements[seriesElem] = element;
+    }
+
+    return harmonicSeriesElements
+}
+
 const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
 
     const [canvasWidth, setCanvasWidth] = useState(0)
 
-    const numberOfSeriesIterations: number = 8;
-    let harmonicSeriesElements: HarmonicSeriesElement[] = [];
     let elementIteration: number = 0;
 
     useEffect(() => {
@@ -50,16 +67,11 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
     }
     }, [])
 
-    for (let seriesElem = 0; seriesElem < numberOfSeriesIterations; seriesElem++) {
-        const noteNumber = noteFromPitch(props.frequency * (seriesElem + 1));
-        const note = getNote(noteNumber % 12);
-        const detune = detuneTypeFromPitch(props.frequency, noteNumber);
-        const element: HarmonicSeriesElement = {
-            frequency: props.frequency * (seriesElem+1),
-            note: `${note} ${detune}`
-        };
+    const harmonicSeriesElements: HarmonicSeriesElement[] = DeriveHarmonicSeriesFromFrequency(props.frequency)
 
-        harmonicSeriesElements[seriesElem] = element;
+    const UpdateElementHovered = (element: number, hover: boolean) => {
+        if (hover) localStorage.setItem('elementHovered', element.toString())
+        else localStorage.setItem('elementHovered', '0')
     }
 
     return(
@@ -73,7 +85,9 @@ const HarmonicSeriesNotes = (props: HarmonicSeriesNotesProps) => {
             harmonicSeriesElements.map(element => {
                 elementIteration++;
                 return (
-                    <div className='harmonic-element-container' key={element.frequency} onClick={() => PlayTone(element.frequency)}>
+                    <div className='harmonic-element-container' key={element.frequency} onClick={() => PlayTone(element.frequency)}
+                        onMouseEnter={() => UpdateElementHovered(element.frequency, true)}
+                        onMouseLeave={() => UpdateElementHovered(0, false)}>
                         <div id={element.frequency.toString()}>{element.frequency} Hz - {element.note}</div>
                         <div className='sine-wave'>
                             <SineWave
