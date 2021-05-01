@@ -14,3 +14,18 @@ th.sine-wave {
   width: 60%;
   padding: 0;
 }
+
+.toggle-description {
+  margin-left: 10px;
+  height: 25px;
+  width: 25px;
+  align-self: center;
+}
+
+.description-header {
+  display: inline-flex;
+}
+
+.collapsed {
+  display: none;
+}
