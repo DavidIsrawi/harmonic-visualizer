@@ -20,7 +20,7 @@ A symbol denoting a musical sound (tone)
 
 ### Frequency
 
-In music, the frequency dictates the pitch - frequency being directly proportional to the pitch of the tone we head (high frequency, high tone)
+In music, the frequency dictates the pitch - frequency being directly proportional to the pitch of the tone we hear (high frequency, high tone)
 
 # Stack
 
