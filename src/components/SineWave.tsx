@@ -9,12 +9,12 @@ interface SineWaveProps {
 
 const SineWave = (props: SineWaveProps) => {
 
-    // getComputerStyle can be expensive
-    // We can pass the color from the parent whenever the container is hovered
     const GetColor = (): string => {
+        const defaultColor: string = 'white'
+        const hoveredColor: string = '#2f8b44'
         const elementHovered = localStorage.getItem('elementHovered')
-        if (elementHovered === null) return 'white'
-        return parseInt(elementHovered, 10) === props.frequency ? '#2f8b44' : 'white'
+        if (elementHovered === null) return defaultColor
+        return parseInt(elementHovered, 10) === props.frequency ? hoveredColor : defaultColor
     }
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
@@ -44,12 +44,11 @@ const SineWave = (props: SineWaveProps) => {
 
         context.clearRect(0, 0, canvas.width, canvas.height)
         context.beginPath()
-        //context.moveTo(0, canvas.height / 2)
 
         for (let x = 0; x < canvas.width; x++) {
             const y: number = canvas.height / 2 + 
                 // Math.sin takes radians
-                // i/total width * pi (pi is half an oscillation) * number of half oscillations we want
+                // x/total width * pi (pi is half an oscillation) * number of half oscillations we want
                 Math.sin(x/canvas.width * Math.PI * props.waves) *
                     50 /* amplitude */ *
                     Math.sin(theta) /* speed */
