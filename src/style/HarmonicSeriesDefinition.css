@@ -29,3 +29,7 @@ th.sine-wave {
 .collapsed {
   display: none;
 }
+
+.description-body {
+  text-align: justify;
+}
